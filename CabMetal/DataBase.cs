@@ -83,18 +83,56 @@ namespace CabMetal
         public List<Catalogs> ReadCatalogs()
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT catalogs.catalog FROM catalogs;";
-            List<Catalogs> listCatalgos = new List<Catalogs>();
+            requete.CommandText = "SELECT * FROM catalogs;";
+            List<Catalogs> listCatalgs = new List<Catalogs>();
             MySqlDataReader dataCatalog = requete.ExecuteReader();
             while (dataCatalog.Read())
             {
                 string catalogData = dataCatalog["catalog"].ToString();
+                int idData = (int)dataCatalog["id"];
 
-                Catalogs catalog = new Catalogs(catalogData);
-                listCatalgos.Add(catalog);
+                Catalogs catalog = new Catalogs(idData,catalogData);
+                listCatalgs.Add(catalog);
 
             }
-            return listCatalgos;
+            return listCatalgs;
         }
+
+        public List<Categories> ReadCategorie()
+        {
+            MySqlCommand requete = connection.CreateCommand();
+            requete.CommandText = "SELECT * FROM categories;";
+            List<Categories> listCategories = new List<Categories>();
+            MySqlDataReader dataCategories = requete.ExecuteReader();
+            while (dataCategories.Read())
+            {
+                string categorieData = dataCategories["category"].ToString();
+                int idData = (int)dataCategories["id"];
+
+                Categories categorie = new Categories(idData,categorieData);
+                listCategories.Add(categorie);
+
+            }
+            return listCategories;
+        }
+
+        public List<Catalogs> ReadCataloguePlacesWhereCategorie(string categorie)
+        {
+            MySqlCommand requete = connection.CreateCommand();
+            requete.CommandText = "SELECT catalogs.catalog, places.place FROM catalogs INNER JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN places ON catalogs.Place_id = places.id WHERE categories.category = '"+categorie+"';";
+            List<Catalogs> listCatalgs = new List<Catalogs>();
+            MySqlDataReader dataCatalog = requete.ExecuteReader();
+            while (dataCatalog.Read())
+            {
+                string catalogData = dataCatalog["catalog"].ToString();
+                string placeData = dataCatalog["place"].ToString();
+
+                Catalogs catalog = new Catalogs(catalogData, placeData);
+                listCatalgs.Add(catalog);
+
+            }
+            return listCatalgs;
+        }
+
     }
 }

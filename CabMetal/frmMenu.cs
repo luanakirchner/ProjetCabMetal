@@ -13,6 +13,7 @@ namespace CabMetal
     public partial class frmMenu : Form
     {
         DataBase MysqlConn = new DataBase();
+        Catalogs catalogSelectionner;
         public frmMenu()
         {
             InitializeComponent();
@@ -79,7 +80,17 @@ namespace CabMetal
                 }
                 MysqlConn.CloseDB();
             }
-   
+            if (cmbTriepar.SelectedIndex == 1)
+            {
+                MysqlConn.OpenDB();
+                List<Categories> listCategories = MysqlConn.ReadCategorie();
+                foreach (Categories value in listCategories)
+                {
+                    cmbNomTrie.Items.Add(value);
+                }
+                MysqlConn.CloseDB();
+            }
+
 
         }
 
@@ -87,33 +98,53 @@ namespace CabMetal
         {
             if (cmbNomTrie.SelectedIndex < 0)
             {
-                MessageBox.Show("Selectioner un nom pour triéer", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Selectioner un nom pour triée", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else {
-                Catalogs catalogSelectionner = (Catalogs)cmbNomTrie.SelectedItem;
-                dgvMenu.Rows.Clear();
-                
-                //-----Triéer par catalogue----
+                dgvMenu.Rows.Clear();         
+                //-----Triée par catalogue----
                 if(cmbTriepar.SelectedIndex == 0)
                 {
-                    MysqlConn.OpenDB();
-                    List<Categories> listCategorie = MysqlConn.ReadCategorieWhereCatalogue(catalogSelectionner.Catalog);
-                    MysqlConn.CloseDB();
-                    MysqlConn.OpenDB();
-                    List<Places> listPlace = MysqlConn.ReadPlacesWhereCatalogue(catalogSelectionner.Catalog);
-                    MysqlConn.CloseDB();
-
-                    string place = "";
-                    foreach(Places value in listPlace)
-                    {
-                        place = value.Place;
-                    }
-
-                    foreach(Categories value in listCategorie)
-                    {
-                        dgvMenu.Rows.Add(catalogSelectionner.Catalog, place, value.Categorie);
-                    }
+                    trierCatalogue();
                 }
+                //--------Triée par categorie -------
+                if(cmbTriepar.SelectedIndex == 1)
+                {
+                    trierCategorie();
+                }
+            }
+        }
+
+        public void trierCatalogue()
+        {
+            catalogSelectionner = (Catalogs)cmbNomTrie.SelectedItem;
+            MysqlConn.OpenDB();
+            List<Categories> listCategorie = MysqlConn.ReadCategorieWhereCatalogue(catalogSelectionner.Catalog);
+            MysqlConn.CloseDB();
+            MysqlConn.OpenDB();
+            List<Places> listPlace = MysqlConn.ReadPlacesWhereCatalogue(catalogSelectionner.Catalog);
+            MysqlConn.CloseDB();
+
+            string place = "";
+            foreach (Places value in listPlace)
+            {
+                place = value.Place;
+            }
+
+            foreach (Categories value in listCategorie)
+            {
+                dgvMenu.Rows.Add(catalogSelectionner.Catalog, place, value.Categorie);
+            }
+        }
+        public void trierCategorie()
+        {
+            Categories categorieSelectinne = (Categories)cmbNomTrie.SelectedItem;
+            MysqlConn.OpenDB();
+            List<Catalogs> listCatalogs = MysqlConn.ReadCataloguePlacesWhereCategorie(categorieSelectinne.Categorie);
+            MysqlConn.CloseDB();
+            foreach (Catalogs value in listCatalogs)
+            {
+                dgvMenu.Rows.Add(value.Catalog,value.Places,categorieSelectinne.Categorie);
             }
         }
     }

@@ -10,6 +10,7 @@ namespace CabMetal
     {
         private int id;
         private string catalog;
+        private string places;
 
         public Catalogs (int id, string catalog)
         {
@@ -20,9 +21,15 @@ namespace CabMetal
         {
             this.catalog = catalog;
         }
+        public Catalogs(string catalog,string places)
+        {
+            this.catalog = catalog;
+            this.places = places;
+        }
 
         public int Id { get => id;}
         public string Catalog { get => catalog;}
+        public string Places { get => places;  }
 
         public override string ToString()
         {
