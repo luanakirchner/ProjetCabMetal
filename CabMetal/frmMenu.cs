@@ -90,6 +90,16 @@ namespace CabMetal
                 }
                 MysqlConn.CloseDB();
             }
+            if(cmbTriepar.SelectedIndex == 2)
+            {
+                MysqlConn.OpenDB();
+                List<Places> listPlaces = MysqlConn.ReadPlaces();
+                foreach (Places value in listPlaces)
+                {
+                    cmbNomTrie.Items.Add(value);
+                }
+                MysqlConn.CloseDB();
+            }
 
 
         }
@@ -111,6 +121,11 @@ namespace CabMetal
                 if(cmbTriepar.SelectedIndex == 1)
                 {
                     trierCategorie();
+                }
+                //-------Triée par places ------------
+                if(cmbTriepar.SelectedIndex == 2)
+                {
+                    TrierPlaces();
                 }
             }
         }
@@ -138,13 +153,25 @@ namespace CabMetal
         }
         public void trierCategorie()
         {
-            Categories categorieSelectinne = (Categories)cmbNomTrie.SelectedItem;
+            Categories categorieSelectionner = (Categories)cmbNomTrie.SelectedItem;
             MysqlConn.OpenDB();
-            List<Catalogs> listCatalogs = MysqlConn.ReadCataloguePlacesWhereCategorie(categorieSelectinne.Categorie);
+            List<Catalogs> listCatalogs = MysqlConn.ReadCataloguePlacesWhereCategorie(categorieSelectionner.Categorie);
             MysqlConn.CloseDB();
             foreach (Catalogs value in listCatalogs)
             {
-                dgvMenu.Rows.Add(value.Catalog,value.Places,categorieSelectinne.Categorie);
+                dgvMenu.Rows.Add(value.Catalog,value.Places,categorieSelectionner.Categorie);
+            }
+        }
+
+        public void TrierPlaces()
+        {
+            Places placeSelectionner = (Places)cmbNomTrie.SelectedItem;
+            MysqlConn.OpenDB();
+            List<Catalogs> listCatalogs = MysqlConn.ReadCatalogsWherePlaces(placeSelectionner.Place);
+            MysqlConn.CloseDB();
+            foreach (Catalogs value in listCatalogs)
+            {
+                dgvMenu.Rows.Add(value.Catalog, placeSelectionner.Place);
             }
         }
     }

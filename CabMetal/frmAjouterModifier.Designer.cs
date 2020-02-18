@@ -33,13 +33,19 @@
             this.txtItem = new System.Windows.Forms.TextBox();
             this.dgvItems = new System.Windows.Forms.DataGridView();
             this.btnSauvegarder = new System.Windows.Forms.Button();
-            this.btnValiderItem = new System.Windows.Forms.Button();
+            this.btnValiderProduit = new System.Windows.Forms.Button();
             this.lblCatologue = new System.Windows.Forms.Label();
             this.lblEmplacement = new System.Windows.Forms.Label();
             this.lblItem = new System.Windows.Forms.Label();
             this.lblNomAdd = new System.Windows.Forms.Label();
-            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Produits = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.picLoupeCatalogues = new System.Windows.Forms.PictureBox();
+            this.picPlaces = new System.Windows.Forms.PictureBox();
+            this.picProduit = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLoupeCatalogues)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlaces)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picProduit)).BeginInit();
             this.SuspendLayout();
             // 
             // txtCatalogue
@@ -72,10 +78,10 @@
             this.dgvItems.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dgvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Item});
+            this.Produits});
             this.dgvItems.Location = new System.Drawing.Point(44, 188);
             this.dgvItems.Name = "dgvItems";
-            this.dgvItems.Size = new System.Drawing.Size(368, 164);
+            this.dgvItems.Size = new System.Drawing.Size(418, 164);
             this.dgvItems.TabIndex = 4;
             // 
             // btnSauvegarder
@@ -85,21 +91,21 @@
             this.btnSauvegarder.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnSauvegarder.Location = new System.Drawing.Point(44, 368);
             this.btnSauvegarder.Name = "btnSauvegarder";
-            this.btnSauvegarder.Size = new System.Drawing.Size(368, 30);
+            this.btnSauvegarder.Size = new System.Drawing.Size(418, 30);
             this.btnSauvegarder.TabIndex = 5;
             this.btnSauvegarder.Text = "Sauvegarder";
             this.btnSauvegarder.UseVisualStyleBackColor = false;
             this.btnSauvegarder.Click += new System.EventHandler(this.BtnSauvegarder_Click);
             // 
-            // btnValiderItem
+            // btnValiderProduit
             // 
-            this.btnValiderItem.Location = new System.Drawing.Point(337, 148);
-            this.btnValiderItem.Name = "btnValiderItem";
-            this.btnValiderItem.Size = new System.Drawing.Size(75, 23);
-            this.btnValiderItem.TabIndex = 3;
-            this.btnValiderItem.Text = "Valider Item";
-            this.btnValiderItem.UseVisualStyleBackColor = true;
-            this.btnValiderItem.Click += new System.EventHandler(this.BtnValiderItem_Click);
+            this.btnValiderProduit.Location = new System.Drawing.Point(337, 148);
+            this.btnValiderProduit.Name = "btnValiderProduit";
+            this.btnValiderProduit.Size = new System.Drawing.Size(87, 23);
+            this.btnValiderProduit.TabIndex = 3;
+            this.btnValiderProduit.Text = "Valider produit";
+            this.btnValiderProduit.UseVisualStyleBackColor = true;
+            this.btnValiderProduit.Click += new System.EventHandler(this.BtnValiderItem_Click);
             // 
             // lblCatologue
             // 
@@ -110,7 +116,7 @@
             this.lblCatologue.Name = "lblCatologue";
             this.lblCatologue.Size = new System.Drawing.Size(102, 25);
             this.lblCatologue.TabIndex = 6;
-            this.lblCatologue.Text = "Catologue";
+            this.lblCatologue.Text = "Catalogue";
             // 
             // lblEmplacement
             // 
@@ -130,39 +136,72 @@
             this.lblItem.ForeColor = System.Drawing.SystemColors.Control;
             this.lblItem.Location = new System.Drawing.Point(39, 144);
             this.lblItem.Name = "lblItem";
-            this.lblItem.Size = new System.Drawing.Size(49, 25);
+            this.lblItem.Size = new System.Drawing.Size(73, 25);
             this.lblItem.TabIndex = 8;
-            this.lblItem.Text = "Item";
+            this.lblItem.Text = "Produit";
             // 
             // lblNomAdd
             // 
             this.lblNomAdd.AutoSize = true;
             this.lblNomAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNomAdd.ForeColor = System.Drawing.Color.LightSalmon;
-            this.lblNomAdd.Location = new System.Drawing.Point(166, 9);
+            this.lblNomAdd.Location = new System.Drawing.Point(205, 9);
             this.lblNomAdd.Name = "lblNomAdd";
             this.lblNomAdd.Size = new System.Drawing.Size(100, 31);
             this.lblNomAdd.TabIndex = 9;
             this.lblNomAdd.Text = "Ajouter";
             // 
-            // Item
+            // Produits
             // 
-            this.Item.HeaderText = "Item";
-            this.Item.Name = "Item";
-            this.Item.ReadOnly = true;
-            this.Item.Width = 225;
+            this.Produits.HeaderText = "Produits";
+            this.Produits.Name = "Produits";
+            this.Produits.ReadOnly = true;
+            this.Produits.Width = 275;
+            // 
+            // picLoupeCatalogues
+            // 
+            this.picLoupeCatalogues.Image = global::CabMetal.Properties.Resources.loupeblanc;
+            this.picLoupeCatalogues.Location = new System.Drawing.Point(337, 61);
+            this.picLoupeCatalogues.Name = "picLoupeCatalogues";
+            this.picLoupeCatalogues.Size = new System.Drawing.Size(32, 32);
+            this.picLoupeCatalogues.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picLoupeCatalogues.TabIndex = 10;
+            this.picLoupeCatalogues.TabStop = false;
+            // 
+            // picPlaces
+            // 
+            this.picPlaces.Image = global::CabMetal.Properties.Resources.loupeblanc;
+            this.picPlaces.Location = new System.Drawing.Point(337, 105);
+            this.picPlaces.Name = "picPlaces";
+            this.picPlaces.Size = new System.Drawing.Size(32, 32);
+            this.picPlaces.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picPlaces.TabIndex = 11;
+            this.picPlaces.TabStop = false;
+            // 
+            // picProduit
+            // 
+            this.picProduit.Image = global::CabMetal.Properties.Resources.loupeblanc;
+            this.picProduit.Location = new System.Drawing.Point(430, 144);
+            this.picProduit.Name = "picProduit";
+            this.picProduit.Size = new System.Drawing.Size(32, 32);
+            this.picProduit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picProduit.TabIndex = 12;
+            this.picProduit.TabStop = false;
             // 
             // frmAjouterModifier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(443, 420);
+            this.ClientSize = new System.Drawing.Size(511, 421);
+            this.Controls.Add(this.picProduit);
+            this.Controls.Add(this.picPlaces);
+            this.Controls.Add(this.picLoupeCatalogues);
             this.Controls.Add(this.lblNomAdd);
             this.Controls.Add(this.lblItem);
             this.Controls.Add(this.lblEmplacement);
             this.Controls.Add(this.lblCatologue);
-            this.Controls.Add(this.btnValiderItem);
+            this.Controls.Add(this.btnValiderProduit);
             this.Controls.Add(this.btnSauvegarder);
             this.Controls.Add(this.dgvItems);
             this.Controls.Add(this.txtItem);
@@ -176,6 +215,9 @@
             this.Text = "Ajouter";
             this.Load += new System.EventHandler(this.FrmAjouter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLoupeCatalogues)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlaces)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picProduit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,11 +230,14 @@
         private System.Windows.Forms.TextBox txtItem;
         private System.Windows.Forms.DataGridView dgvItems;
         private System.Windows.Forms.Button btnSauvegarder;
-        private System.Windows.Forms.Button btnValiderItem;
+        private System.Windows.Forms.Button btnValiderProduit;
         private System.Windows.Forms.Label lblCatologue;
         private System.Windows.Forms.Label lblEmplacement;
         private System.Windows.Forms.Label lblItem;
         private System.Windows.Forms.Label lblNomAdd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Item;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Produits;
+        private System.Windows.Forms.PictureBox picLoupeCatalogues;
+        private System.Windows.Forms.PictureBox picPlaces;
+        private System.Windows.Forms.PictureBox picProduit;
     }
 }

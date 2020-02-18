@@ -133,6 +133,40 @@ namespace CabMetal
             }
             return listCatalgs;
         }
+        public List<Places> ReadPlaces()
+        {
+            MySqlCommand requete = connection.CreateCommand();
+            requete.CommandText = "SELECT * FROM places;";
+            List<Places> listPlaces = new List<Places>();
+            MySqlDataReader dataplaces = requete.ExecuteReader();
+            while (dataplaces.Read())
+            {
+                string placeData = dataplaces["place"].ToString();
+                int idData = (int)dataplaces["id"];
+
+                Places places = new Places(idData, placeData);
+                listPlaces.Add(places);
+
+            }
+            return listPlaces;
+        }
+
+        public List<Catalogs> ReadCatalogsWherePlaces(string places)
+        {
+            MySqlCommand requete = connection.CreateCommand();
+            requete.CommandText = "SELECT catalogs.catalog, places.place FROM catalogs INNER JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN places ON catalogs.Place_id = places.id WHERE places.place = '" + places + "' GROUP BY catalogs.catalog;";
+            List<Catalogs> listCatalgs = new List<Catalogs>();
+            MySqlDataReader dataCatalog = requete.ExecuteReader();
+            while (dataCatalog.Read())
+            {
+                string catalogData = dataCatalog["catalog"].ToString();
+
+                Catalogs catalog = new Catalogs(catalogData);
+                listCatalgs.Add(catalog);
+
+            }
+            return listCatalgs;
+        }
 
     }
 }
