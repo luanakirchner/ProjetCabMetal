@@ -103,6 +103,9 @@
     <EmbeddedResource Include="frmAjouterModifier.resx">
       <DependentUpon>frmAjouterModifier.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmLoupe.resx">
+      <DependentUpon>frmLoupe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </EmbeddedResource>

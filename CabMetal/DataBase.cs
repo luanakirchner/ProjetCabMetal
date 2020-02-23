@@ -133,6 +133,7 @@ namespace CabMetal
             }
             return listCatalgs;
         }
+        
         public List<Places> ReadPlaces()
         {
             MySqlCommand requete = connection.CreateCommand();
@@ -167,6 +168,39 @@ namespace CabMetal
             }
             return listCatalgs;
         }
+        //----------------------INSERT-------------------------
+        public void InsertCategorie(string categorie)
+        {
+            string commande = "INSERT INTO categories (id, category) VALUES (DEFAULT, '"+categorie+"');";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
 
+        public void InsertCatalog(string catalog)
+        {
+            string commande = "INSERT INTO catalogs (id, catalog) VALUES (DEFAULT, '" + catalog + "');";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
+        public void InsertPlace(string place)
+        {
+            string commande = "INSERT INTO places (id, place) VALUES (DEFAULT, '" + place + "');";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
+        public void CatalogAndCategorie(string catalog, string categorie)
+        {
+            string commande = "INSERT INTO catalogs_has_categories (Category_id, Catalog_id) VALUES ((SELECT id FROM categories WHERE categories.category ='" + catalog + "'),(SELECT id FROM catalogs WHERE catalogs.catalog = '"+categorie+"'));";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        //-------------------------UPDATE----------------------------
+        public void UpdateCategorie(string categorie, string modification)
+        {
+            string commande = "UPDATE categories SET categories.category = '"+modification+ "' WHERE categories.category = '"+categorie+"';";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
     }
 }

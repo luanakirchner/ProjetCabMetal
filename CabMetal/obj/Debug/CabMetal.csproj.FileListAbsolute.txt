@@ -40,3 +40,4 @@ L:\Luana\CabMetal\ProjetCabMetal\CabMetal\obj\Debug\CabMetal.csproj.CoreCompileI
 L:\Luana\CabMetal\ProjetCabMetal\CabMetal\obj\Debug\CabMetal.csproj.CopyComplete
 L:\Luana\CabMetal\ProjetCabMetal\CabMetal\obj\Debug\CabMetal.exe
 L:\Luana\CabMetal\ProjetCabMetal\CabMetal\obj\Debug\CabMetal.pdb
+L:\Luana\CabMetal\ProjetCabMetal\CabMetal\obj\Debug\CabMetal.frmLoupe.resources

@@ -32,18 +32,16 @@
             this.txtEmplacement = new System.Windows.Forms.TextBox();
             this.txtItem = new System.Windows.Forms.TextBox();
             this.dgvItems = new System.Windows.Forms.DataGridView();
+            this.Produits = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSauvegarder = new System.Windows.Forms.Button();
             this.btnValiderProduit = new System.Windows.Forms.Button();
             this.lblCatologue = new System.Windows.Forms.Label();
             this.lblEmplacement = new System.Windows.Forms.Label();
             this.lblItem = new System.Windows.Forms.Label();
             this.lblNomAdd = new System.Windows.Forms.Label();
-            this.Produits = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.picLoupeCatalogues = new System.Windows.Forms.PictureBox();
             this.picPlaces = new System.Windows.Forms.PictureBox();
             this.picProduit = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picLoupeCatalogues)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPlaces)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduit)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +81,13 @@
             this.dgvItems.Name = "dgvItems";
             this.dgvItems.Size = new System.Drawing.Size(418, 164);
             this.dgvItems.TabIndex = 4;
+            // 
+            // Produits
+            // 
+            this.Produits.HeaderText = "Produits";
+            this.Produits.Name = "Produits";
+            this.Produits.ReadOnly = true;
+            this.Produits.Width = 275;
             // 
             // btnSauvegarder
             // 
@@ -151,23 +156,6 @@
             this.lblNomAdd.TabIndex = 9;
             this.lblNomAdd.Text = "Ajouter";
             // 
-            // Produits
-            // 
-            this.Produits.HeaderText = "Produits";
-            this.Produits.Name = "Produits";
-            this.Produits.ReadOnly = true;
-            this.Produits.Width = 275;
-            // 
-            // picLoupeCatalogues
-            // 
-            this.picLoupeCatalogues.Image = global::CabMetal.Properties.Resources.loupeblanc;
-            this.picLoupeCatalogues.Location = new System.Drawing.Point(337, 61);
-            this.picLoupeCatalogues.Name = "picLoupeCatalogues";
-            this.picLoupeCatalogues.Size = new System.Drawing.Size(32, 32);
-            this.picLoupeCatalogues.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picLoupeCatalogues.TabIndex = 10;
-            this.picLoupeCatalogues.TabStop = false;
-            // 
             // picPlaces
             // 
             this.picPlaces.Image = global::CabMetal.Properties.Resources.loupeblanc;
@@ -196,7 +184,6 @@
             this.ClientSize = new System.Drawing.Size(511, 421);
             this.Controls.Add(this.picProduit);
             this.Controls.Add(this.picPlaces);
-            this.Controls.Add(this.picLoupeCatalogues);
             this.Controls.Add(this.lblNomAdd);
             this.Controls.Add(this.lblItem);
             this.Controls.Add(this.lblEmplacement);
@@ -215,7 +202,6 @@
             this.Text = "Ajouter";
             this.Load += new System.EventHandler(this.FrmAjouter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picLoupeCatalogues)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPlaces)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduit)).EndInit();
             this.ResumeLayout(false);
@@ -236,7 +222,6 @@
         private System.Windows.Forms.Label lblItem;
         private System.Windows.Forms.Label lblNomAdd;
         private System.Windows.Forms.DataGridViewTextBoxColumn Produits;
-        private System.Windows.Forms.PictureBox picLoupeCatalogues;
         private System.Windows.Forms.PictureBox picPlaces;
         private System.Windows.Forms.PictureBox picProduit;
     }
