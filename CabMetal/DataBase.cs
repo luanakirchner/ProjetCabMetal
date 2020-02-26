@@ -97,6 +97,23 @@ namespace CabMetal
             }
             return listCatalgs;
         }
+        public List<Categories> ReadCategorieWhereCategorie(string categories)
+        {
+            MySqlCommand requete = connection.CreateCommand();
+            requete.CommandText = "SELECT * FROM categories Where category ='" + categories+"';";
+            List<Categories> listCategories = new List<Categories>();
+            MySqlDataReader dataCategories = requete.ExecuteReader();
+            while (dataCategories.Read())
+            {
+                string categorieData = dataCategories["category"].ToString();
+                int idData = (int)dataCategories["id"];
+
+                Categories categorie = new Categories(idData, categorieData);
+                listCategories.Add(categorie);
+
+            }
+            return listCategories;
+        }
 
         public List<Categories> ReadCategorie()
         {
@@ -151,6 +168,23 @@ namespace CabMetal
             }
             return listPlaces;
         }
+        public List<Places> ReadPlacesWherePlaces(string place)
+        {
+            MySqlCommand requete = connection.CreateCommand();
+            requete.CommandText = "SELECT * FROM places WHERE place = '"+place+"';";
+            List<Places> listPlaces = new List<Places>();
+            MySqlDataReader dataplaces = requete.ExecuteReader();
+            while (dataplaces.Read())
+            {
+                string placeData = dataplaces["place"].ToString();
+                int idData = (int)dataplaces["id"];
+
+                Places places = new Places(idData, placeData);
+                listPlaces.Add(places);
+
+            }
+            return listPlaces;
+        }
 
         public List<Catalogs> ReadCatalogsWherePlaces(string places)
         {
@@ -169,11 +203,12 @@ namespace CabMetal
             return listCatalgs;
         }
         //----------------------INSERT-------------------------
-        public void InsertCategorie(string categorie)
+        public long InsertCategorie(string categorie)
         {
             string commande = "INSERT INTO categories (id, category) VALUES (DEFAULT, '"+categorie+"');";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
+            return cmd.LastInsertedId;
         }
 
         public void InsertCatalog(string catalog)
@@ -182,9 +217,16 @@ namespace CabMetal
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
-        public void InsertPlace(string place)
+        public long InsertPlace(string place)
         {
             string commande = "INSERT INTO places (id, place) VALUES (DEFAULT, '" + place + "');";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+            return cmd.LastInsertedId;
+        }
+        public void InsertCatalogWithPlace(string catalog, long idplace)
+        {
+            string commande = "INSERT INTO catalogs (id, catalog, Place_id) VALUES (DEFAULT, '" + catalog + "', "+idplace+");";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
