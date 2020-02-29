@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Json.Net;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using System.IO;
 
 namespace CabMetal
 {
@@ -17,10 +20,17 @@ namespace CabMetal
             InitConnexion();
         }
 
+        ConfigurationDB configJson;
+        public void ReadJson()
+        {
+            string Jsonformat = File.ReadAllText(Application.StartupPath + "/Json/ConnectionDB.json");
+            configJson = ConfigurationDB.FromJson(Jsonformat);
+
+        }
         private void InitConnexion()
         {
-            //Création de la chaine de connexion
-            string connectionString = "SERVER=127.0.0.1; DATABASE=catalogues; UID=root; PASSWORD=LuanaKBL2612";
+            ReadJson();
+            string connectionString = "SERVER =" + configJson.Server + ";" + "DATABASE =" + configJson.Database + ";" + "UID =" + configJson.Uid + ";" + "PASSWORD =" + configJson.Password;
             connection = new MySqlConnection(connectionString);
         }
 

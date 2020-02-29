@@ -42,3 +42,6 @@ L:\Luana\CabMetal\ProjetCabMetal\CabMetal\obj\Debug\CabMetal.exe
 L:\Luana\CabMetal\ProjetCabMetal\CabMetal\obj\Debug\CabMetal.pdb
 L:\Luana\CabMetal\ProjetCabMetal\CabMetal\obj\Debug\CabMetal.frmLoupe.resources
 L:\Luana\CabMetal\ProjetCabMetal\CabMetal\obj\Debug\CabMetal.frmSuppimer.resources
+L:\Luana\CabMetal\ProjetCabMetal\CabMetal\bin\Debug\Json.Net.dll
+L:\Luana\CabMetal\ProjetCabMetal\CabMetal\bin\Debug\Newtonsoft.Json.dll
+L:\Luana\CabMetal\ProjetCabMetal\CabMetal\bin\Debug\Newtonsoft.Json.xml
