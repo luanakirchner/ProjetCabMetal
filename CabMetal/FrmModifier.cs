@@ -13,6 +13,8 @@ namespace CabMetal
     public partial class FrmModifier : Form
     {
         public long idSelectionne;
+        DataBase MysqlConn = new DataBase();
+        public string nomCatalog;
         public FrmModifier()
         {
             InitializeComponent();
@@ -24,22 +26,26 @@ namespace CabMetal
             cmbCatalogue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbCatalogue.AutoCompleteSource = AutoCompleteSource.ListItems;
 
+            MysqlConn.OpenDB();
+            List<Catalogs> listCatalogs = MysqlConn.ReadCatalogs();
+            foreach (Catalogs value in listCatalogs)
+            {
+                cmbCatalogue.Items.Add(value);
+            }
+            MysqlConn.CloseDB();
 
-
-            cmbCatalogue.Items.Add("Catalogue1");
-            cmbCatalogue.Items.Add("Catalogue2");
-            cmbCatalogue.Items.Add("Catalogue3");
         }
 
         private void BtnValider_Click(object sender, EventArgs e)
         {
             if (cmbCatalogue.SelectedIndex < 0)
             {
-                MessageBox.Show("Selectioner un nom pour triéer", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Selectioner un nom", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
-                idSelectionne = 1;
+                Catalogs catalogSelectionner = (Catalogs)cmbCatalogue.SelectedItem;
+                nomCatalog = catalogSelectionner.Catalog;
                 this.Hide();
             }
         }

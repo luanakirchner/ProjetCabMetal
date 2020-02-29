@@ -33,15 +33,17 @@ namespace CabMetal
 
         private void BtnModifier_Click(object sender, EventArgs e)
         {
+            string nomCatalog = "";
             FrmModifier CatalogueModifier = new FrmModifier();
             CatalogueModifier.ShowDialog();
-            long idcatalogue = CatalogueModifier.idSelectionne;
-            
-            if(idcatalogue >= 1)
+            nomCatalog = CatalogueModifier.nomCatalog;
+
+            if (nomCatalog !=null)
             {
                 frmAjouterModifier modifier = new frmAjouterModifier();
                 modifier.textlblNom = "Modifier";
-                modifier.idModifier = idcatalogue;
+                modifier.ModifierCatalog = true;
+                modifier.NomCatalogModifer = nomCatalog;
                 modifier.ShowDialog();
             }
 
@@ -54,7 +56,7 @@ namespace CabMetal
             cmbTriepar.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbTriepar.AutoCompleteSource = AutoCompleteSource.ListItems;
 
-        
+            dgvMenu.DefaultCellStyle.Font = new Font("Sans serif", 10);    
 
             cmbTriepar.Items.Add("Catalogue");
             cmbTriepar.Items.Add("Categories");
@@ -65,6 +67,7 @@ namespace CabMetal
         private void CbmTriepar_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmbNomTrie.Items.Clear();
+            cmbNomTrie.Text = "";
             cmbNomTrie.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             cmbNomTrie.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbNomTrie.AutoCompleteSource = AutoCompleteSource.ListItems;
@@ -73,8 +76,8 @@ namespace CabMetal
             if(cmbTriepar.SelectedIndex == 0)
             {
                 MysqlConn.OpenDB();
-                List<Catalogs> listCatagos = MysqlConn.ReadCatalogs();
-                foreach(Catalogs value in listCatagos)
+                List<Catalogs> listCatalogs = MysqlConn.ReadCatalogs();
+                foreach(Catalogs value in listCatalogs)
                 {
                     cmbNomTrie.Items.Add(value);
                 }
@@ -173,6 +176,12 @@ namespace CabMetal
             {
                 dgvMenu.Rows.Add(value.Catalog, placeSelectionner.Place);
             }
+        }
+
+        private void BtnSupprimer_Click(object sender, EventArgs e)
+        {
+            frmSuppimer supprimer = new frmSuppimer();
+            supprimer.ShowDialog();
         }
     }
 }

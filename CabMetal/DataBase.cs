@@ -80,6 +80,24 @@ namespace CabMetal
             return listPlaces;
         }
 
+        public List<Catalogs> ReadCatalogsWhereCatalogs(string catalog)
+        {
+            MySqlCommand requete = connection.CreateCommand();
+            requete.CommandText = "SELECT * FROM catalogs Where catalog = '"+catalog+"';";
+            List<Catalogs> listCatalgs = new List<Catalogs>();
+            MySqlDataReader dataCatalog = requete.ExecuteReader();
+            while (dataCatalog.Read())
+            {
+                string catalogData = dataCatalog["catalog"].ToString();
+                int idData = (int)dataCatalog["id"];
+
+                Catalogs catalogTrouve = new Catalogs(idData, catalogData);
+                listCatalgs.Add(catalogTrouve);
+
+            }
+            return listCatalgs;
+        }
+
         public List<Catalogs> ReadCatalogs()
         {
             MySqlCommand requete = connection.CreateCommand();
@@ -230,9 +248,9 @@ namespace CabMetal
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
-        public void CatalogAndCategorie(string catalog, string categorie)
+        public void InsertCatalogAndCategorie(string catalog, long categorie)
         {
-            string commande = "INSERT INTO catalogs_has_categories (Category_id, Catalog_id) VALUES ((SELECT id FROM categories WHERE categories.category ='" + catalog + "'),(SELECT id FROM catalogs WHERE catalogs.catalog = '"+categorie+"'));";
+            string commande = "INSERT INTO catalogs_has_categories (Category_id, Catalog_id) VALUES ("+categorie+",(SELECT id FROM catalogs WHERE catalogs.catalog = '"+catalog+"'));";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
@@ -241,6 +259,46 @@ namespace CabMetal
         public void UpdateCategorie(string categorie, string modification)
         {
             string commande = "UPDATE categories SET categories.category = '"+modification+ "' WHERE categories.category = '"+categorie+"';";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        public void UpdateCatalog(string catalog, string modifer)
+        {
+            string commande = "UPDATE catalogs SET catalogs.catalog = '"+modifer+"' WHERE catalogs.catalog = '"+catalog+"';";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
+        public void UpadateCatalogEmplacement(string catalog, long emplacement)
+        {
+            string commande = "UPDATE catalogs SET catalogs.Place_id = '"+emplacement+ "' WHERE catalogs.catalog = '"+catalog+"';";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
+    
+        // ----------------------- Supprimer ----------------
+        public void DeleteCatalogsHasCategorie(string catalog)
+        {
+            string commande = "DELETE FROM catalogs_has_categories  WHERE catalogs_has_categories.Catalog_id = (SELECT id FROM catalogs WHERE catalogs.catalog = '"+catalog+"');";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
+        public void DeleteCatalog(string catalog)
+        {
+            string commande = "DELETE FROM catalogs WHERE catalogs.catalog = '"+catalog+"';";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+
+        }
+        public void DeleteCategorie(string categorie)
+        {
+            string commande = "DELETE FROM categories WHERE categories.category = '"+categorie+"';";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
+        public void DeletePlace(string place)
+        {
+            string commande = "DELETE FROM places WHERE places.place = '"+place+"';";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CabMetal
 {
-    class Categories
+    public class Categories
     {
         private int id;
         private string categorie;

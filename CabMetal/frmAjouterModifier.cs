@@ -14,7 +14,8 @@ namespace CabMetal
     {
         DataBase MysqlConn = new DataBase();
         public string textlblNom;
-        public long idModifier = -1;
+        public bool ModifierCatalog = false;
+        public string NomCatalogModifer;
         Image imagedelet = Image.FromFile(Application.StartupPath + "/Images/delete (1).png");
 
         public frmAjouterModifier()
@@ -26,6 +27,7 @@ namespace CabMetal
         private void FrmAjouter_Load(object sender, EventArgs e)
         {
             this.dgvItems.BorderStyle = BorderStyle.Fixed3D;
+            dgvItems.DefaultCellStyle.Font = new Font("Sans serif", 10);
             btnSauvegarder.FlatStyle = FlatStyle.Flat;
             btnSauvegarder.FlatAppearance.BorderColor = Color.LightSalmon;
             btnSauvegarder.FlatAppearance.BorderSize = 2;
@@ -36,82 +38,179 @@ namespace CabMetal
             dgvItems.Columns.Add(imgdelet);
 
             lblNomAdd.Text = textlblNom;
-            if(idModifier >= 0)
+            if(ModifierCatalog == true)
             {
-                txtCatalogue.Text = "Modifier";
-                dgvItems.Rows.Add("Vidro");
-               
+                txtCatalogue.Text = NomCatalogModifer;
+              
+                MysqlConn.OpenDB();
+                List<Places> listPlace = MysqlConn.ReadPlacesWhereCatalogue(NomCatalogModifer);
+                MysqlConn.CloseDB();
+                foreach (Places value in listPlace)
+                {
+                    txtEmplacement.Text = value.Place;
+                }
+
+                MysqlConn.OpenDB();
+                List<Categories> listCategorie = MysqlConn.ReadCategorieWhereCatalogue(NomCatalogModifer);
+                MysqlConn.CloseDB();
+                foreach (Categories value in listCategorie)
+                {
+                    dgvItems.Rows.Add(value.Categorie);
+                }
             }
         }
 
         private void BtnSauvegarder_Click(object sender, EventArgs e)
         {
-            try
+            if (ModifierCatalog == true)
             {
-                Controller.characterController(txtCatalogue.Text);
-                Controller.characterController(txtEmplacement.Text);
+                try
+                {
+                    Controller.characterController(txtEmplacement.Text);
 
-                if(txtCatalogue.Text == "" && dgvItems.Rows.Count == 0 && txtEmplacement.Text!="")
-                {
-                    ControllerEmplacement(txtEmplacement.Text);
-                    MessageBox.Show("Votre emplacement est bien sauvegarder");
-                }
-                //Ajouter itens 
-                if (txtCatalogue.Text == "" && dgvItems.Rows.Count != 0 && txtEmplacement.Text == "")
-                {
-                    Insertproduits();
-                    MessageBox.Show("Vous produits ont été bien sauvegardée");                 
-                }
-                //Ajouter Catalogue 
-                if (txtCatalogue.Text != "")
-                {
-                    //Juste un catalogue
-                    if(dgvItems.Rows.Count == 0 && txtEmplacement.Text == "")
+                    if (txtEmplacement.Text == "")
                     {
-                        MysqlConn.OpenDB();
-                        MysqlConn.InsertCatalog(txtCatalogue.Text);
-                        MysqlConn.CloseDB(); 
-                        MessageBox.Show("Votre catalogue était bien sauvegarder");
+                        MessageBox.Show("Ajoutez un emplacement");
+
                     }
-                    //Catalgoue + emplacement
-                    if(dgvItems.Rows.Count == 0 && txtEmplacement.Text !="")
+                    else
                     {
+                        //Recuperer le id du emplacement 
                         long idEmplacement = ControllerEmplacement(txtEmplacement.Text);
                         MysqlConn.OpenDB();
-                        MysqlConn.InsertCatalogWithPlace(txtCatalogue.Text, idEmplacement);
+                        //Upade 
+                        MysqlConn.UpadateCatalogEmplacement(NomCatalogModifer, idEmplacement);                
                         MysqlConn.CloseDB();
-                        MessageBox.Show("Vous avez ajoutée un catalog avec son emplacement");
-                    }
-                    //Catalogue + emplacement + produits
-                    if(dgvItems.Rows.Count != 0)
-                    {
-                        if(txtEmplacement.Text == "")
+
+                        MysqlConn.OpenDB();
+                        //Supprimer la table intermediare
+                        MysqlConn.DeleteCatalogsHasCategorie(NomCatalogModifer);
+                        MysqlConn.CloseDB();
+                        //Chercher les produits dans le tableau, les ajoutes et les relier avec le catalog
+                        for (int i = 1; i <= dgvItems.Rows.Count; i++)
                         {
-                            MessageBox.Show("Ajoutez un emplacement");
-                        }
-                        else
-                        {
-                            long idEmplacement = ControllerEmplacement(txtEmplacement.Text);
+                            long idProduit = ControllerProduits(dgvItems.Rows[i - 1].Cells[0].Value.ToString());
                             MysqlConn.OpenDB();
-                            MysqlConn.InsertCatalogWithPlace(txtCatalogue.Text, idEmplacement);
+                            MysqlConn.InsertCatalogAndCategorie(NomCatalogModifer, idProduit);
                             MysqlConn.CloseDB();
-                            long idProduit = ControllerProduits(txtEmplacement.Text);
+                        }
+                        MysqlConn.OpenDB();
+                        //Upade 
+                        MysqlConn.UpdateCatalog(NomCatalogModifer,txtCatalogue.Text);
+                        MysqlConn.CloseDB();
+                        MessageBox.Show("Les nouvelles données on été enregistrées");
+                        CleanChamps();
+                        this.Close();
+                    }
 
-                          
+                }
+                catch (ExecpetionCode ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
 
+            //--------------------Ajouter---------------------------
+            else
+            {
+
+                try
+                {
+                    Controller.characterController(txtCatalogue.Text);
+                    Controller.characterController(txtEmplacement.Text);
+
+                    //Ajouter un emplacement 
+                    if (txtCatalogue.Text == "" && dgvItems.Rows.Count == 0 && txtEmplacement.Text != "")
+                    {
+                        ControllerEmplacement(txtEmplacement.Text);
+                        MessageBox.Show("Votre emplacement est bien sauvegarder");
+                        CleanChamps();
+                    }
+                    //Ajouter itens 
+                    if (txtCatalogue.Text == "" && dgvItems.Rows.Count != 0 && txtEmplacement.Text == "")
+                    {
+                        Insertproduits();
+                        MessageBox.Show("Vous produits ont été bien sauvegardée");
+                        CleanChamps();
+                    }
+                    //Ajouter Catalogue 
+                    if (txtCatalogue.Text != "")
+                    {
+                        try
+                        {
+                            ControllerCatalog(txtCatalogue.Text);
+
+                            //Juste un catalogue
+                            if (dgvItems.Rows.Count == 0 && txtEmplacement.Text == "")
+                            {
+                                MysqlConn.OpenDB();
+                                MysqlConn.InsertCatalog(txtCatalogue.Text);
+                                MysqlConn.CloseDB();
+                                MessageBox.Show("Votre catalogue était bien sauvegarder");
+                                CleanChamps();
+                            }
+                            //Catalgoue + emplacement
+                            if (dgvItems.Rows.Count == 0 && txtEmplacement.Text != "")
+                            {
+                                long idEmplacement = ControllerEmplacement(txtEmplacement.Text);
+                                MysqlConn.OpenDB();
+                                MysqlConn.InsertCatalogWithPlace(txtCatalogue.Text, idEmplacement);
+                                MysqlConn.CloseDB();
+                                MessageBox.Show("Vous avez ajoutée un catalog avec son emplacement");
+                                CleanChamps();
+                            }
+                            //Catalogue + emplacement + produits
+                            if (dgvItems.Rows.Count != 0)
+                            {
+                                if (txtEmplacement.Text == "")
+                                {
+                                    MessageBox.Show("Ajoutez un emplacement");
+
+                                }
+                                else
+                                {
+                                    //Recuperer le id du emplacement 
+                                    long idEmplacement = ControllerEmplacement(txtEmplacement.Text);
+                                    MysqlConn.OpenDB();
+                                    //Inserer le catalog avec le emplacement 
+                                    MysqlConn.InsertCatalogWithPlace(txtCatalogue.Text, idEmplacement);
+                                    MysqlConn.CloseDB();
+
+                                    //Chercher les produits dans le tableau, les ajoutes et les relier avec le catalog
+                                    for (int i = 1; i <= dgvItems.Rows.Count; i++)
+                                    {
+                                        long idProduit = ControllerProduits(dgvItems.Rows[i - 1].Cells[0].Value.ToString());
+                                        MysqlConn.OpenDB();
+                                        MysqlConn.InsertCatalogAndCategorie(txtCatalogue.Text, idProduit);
+                                        MysqlConn.CloseDB();
+                                    }
+
+                                    MessageBox.Show("Vous avez ajoutée un catalog avec son emplacement et ses produits");
+                                    CleanChamps();
+                                }
+                            }
+                        }
+                        catch (ExecpetionCode ex)
+                        {
+                            MessageBox.Show(ex.Message);
                         }
                     }
+
                 }
-                txtEmplacement.Text = "";
-                txtCatalogue.Text = "";
-                dgvItems.Rows.Clear();
-                txtItem.Text = "";
-            }
-            catch (ExceptionCaracterespeciaux ex)
-            {
-                MessageBox.Show(ex.Message);
+                catch (ExceptionCaracterespeciaux ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
+        }
+       
+        public void CleanChamps()
+        {
+            txtEmplacement.Text = "";
+            txtCatalogue.Text = "";
+            dgvItems.Rows.Clear();
+            txtItem.Text = "";
         }
 
         private void BtnValiderItem_Click(object sender, EventArgs e)
@@ -139,9 +238,16 @@ namespace CabMetal
            
            
         }
-        private long ControllerCatalog(string catalog)
+        private void ControllerCatalog(string catalog)
         {
-            return 0;
+
+            MysqlConn.OpenDB();
+            List<Catalogs> listCatalog = MysqlConn.ReadCatalogsWhereCatalogs(catalog);
+            MysqlConn.CloseDB();
+            if(listCatalog.Count != 0)
+            {
+                throw new ExecpetionCode("Le catalog exite déjà");
+            }
         }
         private long ControllerProduits(string produit)
         {
@@ -187,5 +293,46 @@ namespace CabMetal
             return idPlace;
         }
 
+        private void DgvItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            foreach(DataGridViewCell oncell in dgvItems.SelectedCells)
+            {
+                //Clic sur supprimer 
+                if (dgvItems.Rows[e.RowIndex].Cells[1].Selected)
+                {
+                    dgvItems.Rows.RemoveAt(oncell.RowIndex);
+                }
+            }
+        }
+
+        private void PicPlaces_Click(object sender, EventArgs e)
+        {
+            string nomPlace = "";
+            frmLoupe LoupeEmplacement = new frmLoupe();
+            LoupeEmplacement.Emplacement = true;
+            LoupeEmplacement.lblNom.Text = "Emplacement";
+            LoupeEmplacement.ShowDialog();
+            nomPlace = LoupeEmplacement.emplacementSelec;
+
+            if (nomPlace != "")
+            {
+                txtEmplacement.Text = nomPlace;
+            }
+        }
+
+        private void PicProduit_Click(object sender, EventArgs e)
+        {
+            frmLoupe LoupeProduit = new frmLoupe();
+            LoupeProduit.Produit = true;
+            LoupeProduit.lblNom.Text = "Produits";
+            LoupeProduit.ShowDialog();
+            List<Categories> selecProduitlst = new List<Categories>();
+            selecProduitlst = LoupeProduit.lstCategorieSelec;
+
+            foreach(Categories value in selecProduitlst)
+            {
+                dgvItems.Rows.Add(value.Categorie);
+            }
+        }
     }
 }

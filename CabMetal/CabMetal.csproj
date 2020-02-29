@@ -73,6 +73,7 @@
     <Compile Include="Controller.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="ExceptionCaracterespeciaux.cs" />
+    <Compile Include="ExecpetionCode.cs" />
     <Compile Include="frmAjouterModifier.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +98,12 @@
     <Compile Include="FrmModifier.Designer.cs">
       <DependentUpon>FrmModifier.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSuppimer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSuppimer.Designer.cs">
+      <DependentUpon>frmSuppimer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Places.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmModifier.resx">
       <DependentUpon>FrmModifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSuppimer.resx">
+      <DependentUpon>frmSuppimer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

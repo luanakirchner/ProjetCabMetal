@@ -81,6 +81,7 @@
             this.dgvItems.Name = "dgvItems";
             this.dgvItems.Size = new System.Drawing.Size(418, 164);
             this.dgvItems.TabIndex = 4;
+            this.dgvItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvItems_CellContentClick);
             // 
             // Produits
             // 
@@ -165,6 +166,7 @@
             this.picPlaces.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picPlaces.TabIndex = 11;
             this.picPlaces.TabStop = false;
+            this.picPlaces.Click += new System.EventHandler(this.PicPlaces_Click);
             // 
             // picProduit
             // 
@@ -175,6 +177,7 @@
             this.picProduit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picProduit.TabIndex = 12;
             this.picProduit.TabStop = false;
+            this.picProduit.Click += new System.EventHandler(this.PicProduit_Click);
             // 
             // frmAjouterModifier
             // 
@@ -214,7 +217,6 @@
         private System.Windows.Forms.TextBox txtCatalogue;
         private System.Windows.Forms.TextBox txtEmplacement;
         private System.Windows.Forms.TextBox txtItem;
-        private System.Windows.Forms.DataGridView dgvItems;
         private System.Windows.Forms.Button btnSauvegarder;
         private System.Windows.Forms.Button btnValiderProduit;
         private System.Windows.Forms.Label lblCatologue;
@@ -224,5 +226,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Produits;
         private System.Windows.Forms.PictureBox picPlaces;
         private System.Windows.Forms.PictureBox picProduit;
+        public System.Windows.Forms.DataGridView dgvItems;
     }
 }
