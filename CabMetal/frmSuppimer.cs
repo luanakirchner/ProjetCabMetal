@@ -36,7 +36,7 @@ namespace CabMetal
         {
             if (cmdNomsupprimer.SelectedIndex >=0)
             {
-                DialogResult dialogResult = MessageBox.Show("Voulez vous supprimer ce produit définitivement?", "Message de confirmation", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("Voulez-vous supprimer ce produit définitivement ?", "Message de confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 if (dialogResult == DialogResult.Yes)
                 {
                     if (cmbTriePar.SelectedIndex == 0)
@@ -60,7 +60,7 @@ namespace CabMetal
                         MysqlConn.DeletePlace(selectionner.Place);
                         MysqlConn.CloseDB();
                     }
-                    MessageBox.Show("Votre élément a été supprimé");
+                    MessageBox.Show("Votre élément a bien été supprimé");
                     cmdNomsupprimer.Text = "";
                     cmbTriePar.Text = "";
                 }

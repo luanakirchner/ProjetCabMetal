@@ -111,7 +111,7 @@ namespace CabMetal
         {
             if (cmbNomTrie.SelectedIndex < 0)
             {
-                MessageBox.Show("Selectioner un nom pour triée", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Sélectionnez une catégorie pour le trie", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else {
                 dgvMenu.Rows.Clear();         
@@ -152,6 +152,10 @@ namespace CabMetal
             foreach (Categories value in listCategorie)
             {
                 dgvMenu.Rows.Add(catalogSelectionner.Catalog, place, value.Categorie);
+            }
+            if(listCategorie.Count == 0)
+            {
+                dgvMenu.Rows.Add(catalogSelectionner.Catalog, place);
             }
         }
         public void trierCategorie()

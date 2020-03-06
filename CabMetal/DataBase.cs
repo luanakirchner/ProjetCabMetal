@@ -59,7 +59,7 @@ namespace CabMetal
         public List<Categories> ReadCategorieWhereCatalogue(string catalogue)
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT categories.category FROM categories Right JOIN catalogs_has_categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN catalogs ON catalogs.id = catalogs_has_categories.Catalog_id WHERE catalogs.catalog = '"+catalogue.Replace("'", "''") + "';";
+            requete.CommandText = "SELECT categories.category FROM categories INNER JOIN catalogs_has_categories ON categories.id = catalogs_has_categories.Category_id LEFT JOIN catalogs ON catalogs.id = catalogs_has_categories.Catalog_id WHERE catalogs.catalog = '"+catalogue.Replace("'", "''") + "'ORDER BY category;";
             List<Categories> listCategories = new List<Categories>();
             MySqlDataReader dataCategories = requete.ExecuteReader();
             while (dataCategories.Read())
@@ -76,7 +76,7 @@ namespace CabMetal
         public List<Places> ReadPlacesWhereCatalogue(string catalogue)
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT places.place FROM catalogs Right JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN places ON catalogs.Place_id = places.id WHERE catalogs.catalog ='"+catalogue.Replace("'", "''") + "';";
+            requete.CommandText = "SELECT places.place FROM catalogs INNER JOIN places ON catalogs.Place_id = places.id WHERE catalogs.catalog ='"+catalogue.Replace("'", "''") + "'ORDER BY catalog;";
             List<Places> listPlaces = new List<Places>();
             MySqlDataReader dataPlaces = requete.ExecuteReader();
             while (dataPlaces.Read())
@@ -112,7 +112,7 @@ namespace CabMetal
         public List<Catalogs> ReadCatalogs()
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT * FROM catalogs;";
+            requete.CommandText = "SELECT * FROM catalogs ORDER BY catalog;";
             List<Catalogs> listCatalgs = new List<Catalogs>();
             MySqlDataReader dataCatalog = requete.ExecuteReader();
             while (dataCatalog.Read())
@@ -147,7 +147,7 @@ namespace CabMetal
         public List<Categories> ReadCategorie()
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT * FROM categories;";
+            requete.CommandText = "SELECT * FROM categories ORDER BY category;";
             List<Categories> listCategories = new List<Categories>();
             MySqlDataReader dataCategories = requete.ExecuteReader();
             while (dataCategories.Read())
@@ -183,7 +183,7 @@ namespace CabMetal
         public List<Places> ReadPlaces()
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT * FROM places;";
+            requete.CommandText = "SELECT * FROM places ORDER BY place;";
             List<Places> listPlaces = new List<Places>();
             MySqlDataReader dataplaces = requete.ExecuteReader();
             while (dataplaces.Read())
@@ -218,7 +218,7 @@ namespace CabMetal
         public List<Catalogs> ReadCatalogsWherePlaces(string places)
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT catalogs.catalog, places.place FROM catalogs Right JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN places ON catalogs.Place_id = places.id WHERE places.place = '" + places.Replace("'", "''") + "' GROUP BY catalogs.catalog;";
+            requete.CommandText = "SELECT catalogs.catalog, places.place FROM catalogs LEFT JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id LEFT JOIN categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN places ON catalogs.Place_id = places.id WHERE places.place = '" + places.Replace("'", "''") + "' GROUP BY catalogs.catalog;";
             List<Catalogs> listCatalgs = new List<Catalogs>();
             MySqlDataReader dataCatalog = requete.ExecuteReader();
             while (dataCatalog.Read())

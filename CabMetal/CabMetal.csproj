@@ -159,5 +159,8 @@
   <ItemGroup>
     <None Include="Resources\loupeblanc.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\Logo Cabmetal SA sans fond.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -40,7 +40,7 @@ namespace CabMetal
         {
             if (cmbCatalogue.SelectedIndex < 0)
             {
-                MessageBox.Show("Selectioner un nom", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Sélectionnez un catalogue, s'il vous plaît", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {

@@ -63,6 +63,16 @@ namespace CabMetal.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Logo_Cabmetal_SA_sans_fond {
+            get {
+                object obj = ResourceManager.GetObject("Logo Cabmetal SA sans fond", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Loupe {
             get {
                 object obj = ResourceManager.GetObject("Loupe", resourceCulture);

@@ -80,7 +80,7 @@
             this.MinimizeBox = false;
             this.Name = "frmLoupe";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Loupe";
+            this.Text = "CabMétal SA - Loupe";
             this.Load += new System.EventHandler(this.FrmLoupe_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

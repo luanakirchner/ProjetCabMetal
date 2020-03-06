@@ -125,14 +125,14 @@ namespace CabMetal
                     if (txtCatalogue.Text == "" && dgvItems.Rows.Count == 0 && txtEmplacement.Text != "")
                     {
                         ControllerEmplacement(txtEmplacement.Text);
-                        MessageBox.Show("Votre emplacement est bien sauvegarder");
+                        MessageBox.Show("Votre emplacement a bien été sauvegardé");
                         CleanChamps();
                     }
                     //Ajouter itens 
                     if (txtCatalogue.Text == "" && dgvItems.Rows.Count != 0 && txtEmplacement.Text == "")
                     {
                         Insertproduits();
-                        MessageBox.Show("Vous produits ont été bien sauvegardée");
+                        MessageBox.Show("Vos produits ont bien été sauvegardés");
                         CleanChamps();
                     }
                     //Ajouter Catalogue 
@@ -148,7 +148,7 @@ namespace CabMetal
                                 MysqlConn.OpenDB();
                                 MysqlConn.InsertCatalog(txtCatalogue.Text);
                                 MysqlConn.CloseDB();
-                                MessageBox.Show("Votre catalogue était bien sauvegarder");
+                                MessageBox.Show("Votre catalogue a bien été sauvegardé");
                                 CleanChamps();
                             }
                             //Catalgoue + emplacement
@@ -158,7 +158,7 @@ namespace CabMetal
                                 MysqlConn.OpenDB();
                                 MysqlConn.InsertCatalogWithPlace(txtCatalogue.Text, idEmplacement);
                                 MysqlConn.CloseDB();
-                                MessageBox.Show("Vous avez ajoutée un catalog avec son emplacement");
+                                MessageBox.Show("Vous avez ajouté un catalogue avec son emplacement");
                                 CleanChamps();
                             }
                             //Catalogue + emplacement + produits
@@ -192,7 +192,7 @@ namespace CabMetal
                                         MysqlConn.CloseDB();
                                     }
 
-                                    MessageBox.Show("Vous avez ajoutée un catalog avec son emplacement et ses produits");
+                                    MessageBox.Show("Vous avez ajouté un catalogue avec son emplacement et ses produits");
                                     CleanChamps();
                                 }
                             }
@@ -252,7 +252,7 @@ namespace CabMetal
             MysqlConn.CloseDB();
             if(listCatalog.Count != 0)
             {
-                throw new ExecpetionCode("Le catalog exite déjà");
+                throw new ExecpetionCode("Le catalogue existe déjà !");
             }
         }
         private long ControllerProduits(string produit)

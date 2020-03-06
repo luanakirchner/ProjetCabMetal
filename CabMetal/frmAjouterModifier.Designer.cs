@@ -39,11 +39,11 @@
             this.lblEmplacement = new System.Windows.Forms.Label();
             this.lblItem = new System.Windows.Forms.Label();
             this.lblNomAdd = new System.Windows.Forms.Label();
-            this.picPlaces = new System.Windows.Forms.PictureBox();
             this.picProduit = new System.Windows.Forms.PictureBox();
+            this.picPlaces = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picPlaces)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlaces)).BeginInit();
             this.SuspendLayout();
             // 
             // txtCatalogue
@@ -157,17 +157,6 @@
             this.lblNomAdd.TabIndex = 9;
             this.lblNomAdd.Text = "Ajouter";
             // 
-            // picPlaces
-            // 
-            this.picPlaces.Image = global::CabMetal.Properties.Resources.loupeblanc;
-            this.picPlaces.Location = new System.Drawing.Point(337, 105);
-            this.picPlaces.Name = "picPlaces";
-            this.picPlaces.Size = new System.Drawing.Size(32, 32);
-            this.picPlaces.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picPlaces.TabIndex = 11;
-            this.picPlaces.TabStop = false;
-            this.picPlaces.Click += new System.EventHandler(this.PicPlaces_Click);
-            // 
             // picProduit
             // 
             this.picProduit.Image = global::CabMetal.Properties.Resources.loupeblanc;
@@ -178,6 +167,17 @@
             this.picProduit.TabIndex = 12;
             this.picProduit.TabStop = false;
             this.picProduit.Click += new System.EventHandler(this.PicProduit_Click);
+            // 
+            // picPlaces
+            // 
+            this.picPlaces.Image = global::CabMetal.Properties.Resources.loupeblanc;
+            this.picPlaces.Location = new System.Drawing.Point(337, 105);
+            this.picPlaces.Name = "picPlaces";
+            this.picPlaces.Size = new System.Drawing.Size(32, 32);
+            this.picPlaces.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picPlaces.TabIndex = 11;
+            this.picPlaces.TabStop = false;
+            this.picPlaces.Click += new System.EventHandler(this.PicPlaces_Click);
             // 
             // frmAjouterModifier
             // 
@@ -202,11 +202,11 @@
             this.MinimizeBox = false;
             this.Name = "frmAjouterModifier";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Ajouter";
+            this.Text = "CabMétal SA - Ajouter/Modifier";
             this.Load += new System.EventHandler(this.FrmAjouter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picPlaces)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picProduit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlaces)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

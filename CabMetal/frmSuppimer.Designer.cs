@@ -72,9 +72,9 @@
             this.lblTexte.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblTexte.Location = new System.Drawing.Point(45, 154);
             this.lblTexte.Name = "lblTexte";
-            this.lblTexte.Size = new System.Drawing.Size(310, 25);
+            this.lblTexte.Size = new System.Drawing.Size(314, 25);
             this.lblTexte.TabIndex = 3;
-            this.lblTexte.Text = "Sélectionner l\'élément à supprimer";
+            this.lblTexte.Text = "Sélectionnez l\'élément à supprimer";
             // 
             // btnSuppimer
             // 
@@ -107,7 +107,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmSuppimer";
+            this.Text = "CabMétal SA - Supprimer";
             this.Load += new System.EventHandler(this.FrmSuppimer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

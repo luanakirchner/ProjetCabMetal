@@ -93,7 +93,7 @@
             this.MinimizeBox = false;
             this.Name = "FrmModifier";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Modifier";
+            this.Text = "CabMétal SA - Modifier";
             this.Load += new System.EventHandler(this.FrmModifier_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
