@@ -67,19 +67,22 @@ namespace CabMetal
                 try
                 {
                     Controller.characterController(txtEmplacement.Text);
-
-                    if (txtEmplacement.Text == "")
+                    long idEmplacement = 0;
+                    if (txtEmplacement.Text != "")
                     {
-                        MessageBox.Show("Ajoutez un emplacement");
-
+                        idEmplacement = ControllerEmplacement(txtEmplacement.Text);
                     }
-                    else
-                    {
-                        //Recuperer le id du emplacement 
-                        long idEmplacement = ControllerEmplacement(txtEmplacement.Text);
+
                         MysqlConn.OpenDB();
                         //Upade 
-                        MysqlConn.UpadateCatalogEmplacement(NomCatalogModifer, idEmplacement);                
+                        if(idEmplacement == 0)
+                        {
+                            MysqlConn.UpadateCatalogSansEmplacement(NomCatalogModifer);
+                        }
+                        if(idEmplacement != 0)
+                        {
+                            MysqlConn.UpadateCatalogEmplacement(NomCatalogModifer, idEmplacement);
+                        }
                         MysqlConn.CloseDB();
 
                         MysqlConn.OpenDB();
@@ -98,12 +101,11 @@ namespace CabMetal
                         //Upade 
                         MysqlConn.UpdateCatalog(NomCatalogModifer,txtCatalogue.Text);
                         MysqlConn.CloseDB();
-                        MessageBox.Show("Les nouvelles données on été enregistrées");
+                        MessageBox.Show("Les nouvelles données ont été enregistrées");
                         CleanChamps();
                         this.Close();
                     }
 
-                }
                 catch (ExecpetionCode ex)
                 {
                     MessageBox.Show(ex.Message);
@@ -162,18 +164,23 @@ namespace CabMetal
                             //Catalogue + emplacement + produits
                             if (dgvItems.Rows.Count != 0)
                             {
-                                if (txtEmplacement.Text == "")
-                                {
-                                    MessageBox.Show("Ajoutez un emplacement");
-
-                                }
-                                else
+                                long idEmplacement = 0;
+                                if (txtEmplacement.Text != "")
                                 {
                                     //Recuperer le id du emplacement 
-                                    long idEmplacement = ControllerEmplacement(txtEmplacement.Text);
+                                    idEmplacement = ControllerEmplacement(txtEmplacement.Text);
+
+                                }
                                     MysqlConn.OpenDB();
-                                    //Inserer le catalog avec le emplacement 
-                                    MysqlConn.InsertCatalogWithPlace(txtCatalogue.Text, idEmplacement);
+                                    if (idEmplacement == 0)
+                                    {
+                                        MysqlConn.InsertCatalog(txtCatalogue.Text);
+                                    }
+                                    if(idEmplacement != 0)
+                                    {
+                                        //Inserer le catalog avec le emplacement 
+                                        MysqlConn.InsertCatalogWithPlace(txtCatalogue.Text, idEmplacement);
+                                    }
                                     MysqlConn.CloseDB();
 
                                     //Chercher les produits dans le tableau, les ajoutes et les relier avec le catalog
@@ -189,7 +196,6 @@ namespace CabMetal
                                     CleanChamps();
                                 }
                             }
-                        }
                         catch (ExecpetionCode ex)
                         {
                             MessageBox.Show(ex.Message);

@@ -79,6 +79,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmLoupe";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Loupe";
             this.Load += new System.EventHandler(this.FrmLoupe_Load);
             this.ResumeLayout(false);

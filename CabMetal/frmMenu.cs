@@ -59,7 +59,7 @@ namespace CabMetal
             dgvMenu.DefaultCellStyle.Font = new Font("Sans serif", 10);    
 
             cmbTriepar.Items.Add("Catalogue");
-            cmbTriepar.Items.Add("Categories");
+            cmbTriepar.Items.Add("Produits");
             cmbTriepar.Items.Add("Emplacement");
 
         }

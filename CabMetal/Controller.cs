@@ -10,13 +10,9 @@ namespace CabMetal
     {
         public static void characterController(string nom)
         {
-            if (nom.IndexOf("'") > 0)
-            {
-                throw new ExceptionCaracterespeciaux("Pas des caractères spéciaux permit");
-            }
             if (nom.IndexOf("%") > 0)
             {
-                throw new ExceptionCaracterespeciaux("Pas des caractères spéciaux permit");
+                throw new ExceptionCaracterespeciaux("Pas des % permit");
             }  
         }
     }

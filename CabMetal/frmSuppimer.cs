@@ -28,7 +28,7 @@ namespace CabMetal
             cmbTriePar.AutoCompleteSource = AutoCompleteSource.ListItems;
 
             cmbTriePar.Items.Add("Catalogue");
-            cmbTriePar.Items.Add("Categories");
+            cmbTriePar.Items.Add("Produits");
             cmbTriePar.Items.Add("Emplacement");
         }
 

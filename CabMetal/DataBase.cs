@@ -59,7 +59,7 @@ namespace CabMetal
         public List<Categories> ReadCategorieWhereCatalogue(string catalogue)
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT categories.category FROM categories INNER JOIN catalogs_has_categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN catalogs ON catalogs.id = catalogs_has_categories.Catalog_id WHERE catalogs.catalog = '"+catalogue+"';";
+            requete.CommandText = "SELECT categories.category FROM categories Right JOIN catalogs_has_categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN catalogs ON catalogs.id = catalogs_has_categories.Catalog_id WHERE catalogs.catalog = '"+catalogue.Replace("'", "''") + "';";
             List<Categories> listCategories = new List<Categories>();
             MySqlDataReader dataCategories = requete.ExecuteReader();
             while (dataCategories.Read())
@@ -76,7 +76,7 @@ namespace CabMetal
         public List<Places> ReadPlacesWhereCatalogue(string catalogue)
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT places.place FROM catalogs INNER JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN places ON catalogs.Place_id = places.id WHERE catalogs.catalog ='"+catalogue+"';";
+            requete.CommandText = "SELECT places.place FROM catalogs Right JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN places ON catalogs.Place_id = places.id WHERE catalogs.catalog ='"+catalogue.Replace("'", "''") + "';";
             List<Places> listPlaces = new List<Places>();
             MySqlDataReader dataPlaces = requete.ExecuteReader();
             while (dataPlaces.Read())
@@ -92,8 +92,9 @@ namespace CabMetal
 
         public List<Catalogs> ReadCatalogsWhereCatalogs(string catalog)
         {
+        
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT * FROM catalogs Where catalog = '"+catalog+"';";
+            requete.CommandText = "SELECT * FROM catalogs Where catalog = '"+ catalog.Replace("'", "''") + "';";
             List<Catalogs> listCatalgs = new List<Catalogs>();
             MySqlDataReader dataCatalog = requete.ExecuteReader();
             while (dataCatalog.Read())
@@ -128,7 +129,7 @@ namespace CabMetal
         public List<Categories> ReadCategorieWhereCategorie(string categories)
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT * FROM categories Where category ='" + categories+"';";
+            requete.CommandText = "SELECT * FROM categories Where category ='" + categories.Replace("'", "''") + "';";
             List<Categories> listCategories = new List<Categories>();
             MySqlDataReader dataCategories = requete.ExecuteReader();
             while (dataCategories.Read())
@@ -164,7 +165,7 @@ namespace CabMetal
         public List<Catalogs> ReadCataloguePlacesWhereCategorie(string categorie)
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT catalogs.catalog, places.place FROM catalogs INNER JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN places ON catalogs.Place_id = places.id WHERE categories.category = '"+categorie+"';";
+            requete.CommandText = "SELECT catalogs.catalog, places.place FROM catalogs INNER JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN categories ON categories.id = catalogs_has_categories.Category_id LEFT JOIN places ON catalogs.Place_id = places.id WHERE categories.category = '"+categorie.Replace("'", "''") + "';";
             List<Catalogs> listCatalgs = new List<Catalogs>();
             MySqlDataReader dataCatalog = requete.ExecuteReader();
             while (dataCatalog.Read())
@@ -199,7 +200,7 @@ namespace CabMetal
         public List<Places> ReadPlacesWherePlaces(string place)
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT * FROM places WHERE place = '"+place+"';";
+            requete.CommandText = "SELECT * FROM places WHERE place = '"+place.Replace("'", "''") + "';";
             List<Places> listPlaces = new List<Places>();
             MySqlDataReader dataplaces = requete.ExecuteReader();
             while (dataplaces.Read())
@@ -217,7 +218,7 @@ namespace CabMetal
         public List<Catalogs> ReadCatalogsWherePlaces(string places)
         {
             MySqlCommand requete = connection.CreateCommand();
-            requete.CommandText = "SELECT catalogs.catalog, places.place FROM catalogs INNER JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN places ON catalogs.Place_id = places.id WHERE places.place = '" + places + "' GROUP BY catalogs.catalog;";
+            requete.CommandText = "SELECT catalogs.catalog, places.place FROM catalogs Right JOIN catalogs_has_categories ON catalogs.id = catalogs_has_categories.Catalog_id INNER JOIN categories ON categories.id = catalogs_has_categories.Category_id INNER JOIN places ON catalogs.Place_id = places.id WHERE places.place = '" + places.Replace("'", "''") + "' GROUP BY catalogs.catalog;";
             List<Catalogs> listCatalgs = new List<Catalogs>();
             MySqlDataReader dataCatalog = requete.ExecuteReader();
             while (dataCatalog.Read())
@@ -233,7 +234,7 @@ namespace CabMetal
         //----------------------INSERT-------------------------
         public long InsertCategorie(string categorie)
         {
-            string commande = "INSERT INTO categories (id, category) VALUES (DEFAULT, '"+categorie+"');";
+            string commande = "INSERT INTO categories (id, category) VALUES (DEFAULT, '"+categorie.Replace("'", "''") + "');";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
             return cmd.LastInsertedId;
@@ -241,26 +242,27 @@ namespace CabMetal
 
         public void InsertCatalog(string catalog)
         {
-            string commande = "INSERT INTO catalogs (id, catalog) VALUES (DEFAULT, '" + catalog + "');";
+            string commande = "INSERT INTO catalogs (id, catalog) VALUES (DEFAULT, '" + catalog.Replace("'", "''")+ "');";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
         public long InsertPlace(string place)
         {
-            string commande = "INSERT INTO places (id, place) VALUES (DEFAULT, '" + place + "');";
+            string commande = "INSERT INTO places (id, place) VALUES (DEFAULT, '" + place.Replace("'", "''") + "');";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
             return cmd.LastInsertedId;
         }
         public void InsertCatalogWithPlace(string catalog, long idplace)
         {
-            string commande = "INSERT INTO catalogs (id, catalog, Place_id) VALUES (DEFAULT, '" + catalog + "', "+idplace+");";
+            string commande = "INSERT INTO catalogs (id, catalog, Place_id) VALUES (DEFAULT, '" + catalog.Replace("'", "''") + "', "+idplace + ");";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
+
         public void InsertCatalogAndCategorie(string catalog, long categorie)
         {
-            string commande = "INSERT INTO catalogs_has_categories (Category_id, Catalog_id) VALUES ("+categorie+",(SELECT id FROM catalogs WHERE catalogs.catalog = '"+catalog+"'));";
+            string commande = "INSERT INTO catalogs_has_categories (Category_id, Catalog_id) VALUES ("+categorie + ",(SELECT id FROM catalogs WHERE catalogs.catalog = '"+catalog.Replace("'", "''") + "'));";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
@@ -268,47 +270,52 @@ namespace CabMetal
         //-------------------------UPDATE----------------------------
         public void UpdateCategorie(string categorie, string modification)
         {
-            string commande = "UPDATE categories SET categories.category = '"+modification+ "' WHERE categories.category = '"+categorie+"';";
+            string commande = "UPDATE categories SET categories.category = '"+modification.Replace("'", "''") + "' WHERE categories.category = '"+categorie.Replace("'", "''") + "';";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
 
         public void UpdateCatalog(string catalog, string modifer)
         {
-            string commande = "UPDATE catalogs SET catalogs.catalog = '"+modifer+"' WHERE catalogs.catalog = '"+catalog+"';";
+            string commande = "UPDATE catalogs SET catalogs.catalog = '"+modifer.Replace("'", "''") + "' WHERE catalogs.catalog = '"+catalog.Replace("'", "''") + "';";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
         public void UpadateCatalogEmplacement(string catalog, long emplacement)
         {
-            string commande = "UPDATE catalogs SET catalogs.Place_id = '"+emplacement+ "' WHERE catalogs.catalog = '"+catalog+"';";
+            string commande = "UPDATE catalogs SET catalogs.Place_id = '"+emplacement+ "' WHERE catalogs.catalog = '"+catalog.Replace("'", "''") + "';";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
-    
+        public void UpadateCatalogSansEmplacement(string catalog)
+        {
+            string commande = "UPDATE catalogs SET catalogs.Place_id = null WHERE catalogs.catalog = '" + catalog.Replace("'", "''") + "';";
+            MySqlCommand cmd = new MySqlCommand(commande, connection);
+            cmd.ExecuteNonQuery();
+        }
         // ----------------------- Supprimer ----------------
         public void DeleteCatalogsHasCategorie(string catalog)
         {
-            string commande = "DELETE FROM catalogs_has_categories  WHERE catalogs_has_categories.Catalog_id = (SELECT id FROM catalogs WHERE catalogs.catalog = '"+catalog+"');";
+            string commande = "DELETE FROM catalogs_has_categories  WHERE catalogs_has_categories.Catalog_id = (SELECT id FROM catalogs WHERE catalogs.catalog = '"+catalog.Replace("'", "''") + "');";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
         public void DeleteCatalog(string catalog)
         {
-            string commande = "DELETE FROM catalogs WHERE catalogs.catalog = '"+catalog+"';";
+            string commande = "DELETE FROM catalogs WHERE catalogs.catalog = '"+catalog.Replace("'", "''") + "';";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
 
         }
         public void DeleteCategorie(string categorie)
         {
-            string commande = "DELETE FROM categories WHERE categories.category = '"+categorie+"';";
+            string commande = "DELETE FROM categories WHERE categories.category = '"+ categorie.Replace("'", "''") + "';";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
         public void DeletePlace(string place)
         {
-            string commande = "DELETE FROM places WHERE places.place = '"+place+"';";
+            string commande = "DELETE FROM places WHERE places.place = '"+place.Replace("'", "''") + "';";
             MySqlCommand cmd = new MySqlCommand(commande, connection);
             cmd.ExecuteNonQuery();
         }
