@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMenu));
             this.cmbTriepar = new System.Windows.Forms.ComboBox();
             this.dgvMenu = new System.Windows.Forms.DataGridView();
             this.Catalogue = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -190,7 +191,9 @@
             this.Controls.Add(this.lvbTrie);
             this.Controls.Add(this.dgvMenu);
             this.Controls.Add(this.cmbTriepar);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmMenu";

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmModifier));
             this.cmbCatalogue = new System.Windows.Forms.ComboBox();
             this.btnValider = new System.Windows.Forms.Button();
             this.lblCatalogue = new System.Windows.Forms.Label();
@@ -88,7 +89,8 @@
             this.Controls.Add(this.lblCatalogue);
             this.Controls.Add(this.btnValider);
             this.Controls.Add(this.cmbCatalogue);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmModifier";

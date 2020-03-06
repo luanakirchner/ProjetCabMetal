@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAjouterModifier));
             this.txtCatalogue = new System.Windows.Forms.TextBox();
             this.txtEmplacement = new System.Windows.Forms.TextBox();
             this.txtItem = new System.Windows.Forms.TextBox();
@@ -197,7 +198,8 @@
             this.Controls.Add(this.txtItem);
             this.Controls.Add(this.txtEmplacement);
             this.Controls.Add(this.txtCatalogue);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAjouterModifier";

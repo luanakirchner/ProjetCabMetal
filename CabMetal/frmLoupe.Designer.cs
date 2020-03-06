@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLoupe));
             this.btnValider = new System.Windows.Forms.Button();
             this.lsbProduits = new System.Windows.Forms.ListBox();
             this.lblNom = new System.Windows.Forms.Label();
@@ -76,6 +77,8 @@
             this.Controls.Add(this.lblNom);
             this.Controls.Add(this.lsbProduits);
             this.Controls.Add(this.btnValider);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmLoupe";
